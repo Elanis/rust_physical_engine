@@ -25,32 +25,27 @@ fn main() {
 	// Initialize world
 	let mut _world = World::new();
 
-	_world.set_gravity(-1.0);
+	_world.set_gravity(10.0);
+
 	_world.add_entity(
 		Box::new(
 			Cube::new(
-				10,
-				10,
-				Vec3::new(400.0, 400.0, 0.0)
+				Vec3::new((WIDTH/2 - 25) as f32, (HEIGHT/2 - 25) as f32, 0.0),
+				50
 			)
 		)
 	);
 
-	let mut initialized = false;
-
 	// Draw window
 	while window.is_open() && !window.is_key_down(Key::Escape) {
-		if !initialized {
-			for i in buffer.iter_mut() {
-				*i = 0xFFFFFF; // write something more funny here!
-			}
-
-			initialized = true;
-		} else {
-			_world.simulate(&buffer);
+		// Render background
+		for i in buffer.iter_mut() {
+			*i = 0xEEEEEE;
 		}
 
-		// We unwrap here as we want this code to exit if it fails. Real applications may want to handle this in a different way
+		_world.simulate(&mut buffer, WIDTH, HEIGHT);
+
+		// Really draw what we rendered
 		window.update_with_buffer(&buffer).unwrap();
 	}
 }

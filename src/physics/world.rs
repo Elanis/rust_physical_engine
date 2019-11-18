@@ -21,7 +21,16 @@ impl World {
     	self._entities.push(entity);
     }
 
-    pub fn simulate(&self, _buffer : &Vec<u32>) {
+    pub fn simulate(&mut self, mut _buffer : &mut Vec<u32>, width : usize, height : usize) {
+        let tick : f32 = 1.0/30.0;
 
+    	for (_i, object) in self._entities.iter_mut().enumerate() {
+            object.recalc_speed(tick, self._gravity);
+            object.recalc_pos(tick);
+
+            object.apply_collisions(width, height);
+
+    		object.render(&mut _buffer, width, height);
+    	}
     }
 }
