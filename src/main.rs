@@ -47,6 +47,16 @@ fn main() {
 		)
 	);
 
+	_world.add_entity(
+		Box::new(
+			Cube::new_immutable(
+				Vec3::new((WIDTH/3 - 50) as f32, (HEIGHT/3 - 100) as f32, 0.0),
+				0x00FF00,
+				50
+			)
+		)
+	);
+
 	// Draw window
 	while window.is_open() && !window.is_key_down(Key::Escape) {
 		// Render background

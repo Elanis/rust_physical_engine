@@ -10,6 +10,8 @@ pub struct Cube {
 	_velocity: Vec3,
 	_angle_velocity: Vec3,
 
+	_immutable: bool,
+
 	_width: u32,
 	_color: u32
 }
@@ -50,6 +52,8 @@ impl Entity for Cube {
 	}
 
 	fn recalc_speed(&mut self, tick : f32, gravity : f32) {
+		if self._immutable { return; }
+		
 		self._velocity.y += gravity * tick;
 	}
 
@@ -61,6 +65,10 @@ impl Entity for Cube {
 		self._angles.x += self._angle_velocity.z * tick;
 		self._angles.y += self._angle_velocity.y * tick;
 		self._angles.z += self._angle_velocity.z * tick;
+	}
+
+	fn is_immutable(&self) -> bool {
+		self._immutable
 	}
 
 	fn get_up(&self) -> f32 {
@@ -82,12 +90,22 @@ impl Entity for Cube {
 
 impl Cube {
 	pub fn new(postion : Vec3, color : u32, width : u32) -> Cube {
+		(Cube::create(postion, color, width, false))
+	}
+
+	pub fn new_immutable(postion : Vec3, color : u32, width : u32) -> Cube {
+		(Cube::create(postion, color, width, true))
+	}
+
+	pub fn create(postion : Vec3, color : u32, width : u32, immutable : bool) -> Cube {
 		return Cube {
 			_position : postion,
 			_angles: Vec3::new(0.0, 0.0, 0.0),
 
 			_velocity: Vec3::new(0.0, 0.0, 0.0),
 			_angle_velocity: Vec3::new(0.0, 0.0, 0.0),
+
+			_immutable: immutable,
 
 			_width: width,
 
