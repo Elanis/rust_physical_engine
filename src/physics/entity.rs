@@ -9,9 +9,6 @@ pub trait Entity {
 	fn recalc_speed(&mut self, tick : f32, gravity : f32);
 	fn recalc_pos(&mut self, tick : f32);
 
-	fn apply_collisions(&mut self, width : usize, height : usize);
-
-	
 	fn get_up(&self) -> f32;
 	fn get_left(&self) -> f32;
 	fn get_bottom(&self) -> f32;

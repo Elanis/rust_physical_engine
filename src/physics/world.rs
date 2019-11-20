@@ -28,8 +28,6 @@ impl World {
             object.recalc_speed(tick, self._gravity);
             object.recalc_pos(tick);
 
-            object.apply_collisions(width, height);
-
     		object.render(&mut _buffer, width, height);
     	}
     }

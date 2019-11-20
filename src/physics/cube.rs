@@ -35,9 +35,17 @@ impl Entity for Cube {
 	fn render(&self, _buffer : &mut Vec<u32>, width : usize, height : usize) {
 		for x in 0..self._width {
 			for y in 0..self._width {
-				_buffer[((y + self._position.y as u32) as usize * width) + (x + self._position.x as u32) as usize] = 0;
+				let line : usize = (y + self._position.y as u32) as usize;
+
+				if line >= height {
+					continue;
+				}
+
+				_buffer[(line * width) + (x + self._position.x as u32) as usize] = self._color;
 			}
 		}
+
+		// TODO: 3D Render
 	}
 
 	fn recalc_speed(&mut self, tick : f32, gravity : f32) {
@@ -52,16 +60,6 @@ impl Entity for Cube {
 		self._angles.x += self._angle_velocity.z * tick;
 		self._angles.y += self._angle_velocity.y * tick;
 		self._angles.z += self._angle_velocity.z * tick;
-	}
-
-	fn apply_collisions(&mut self, width : usize, height : usize) {
-		if self.get_up() < 0.0 {
-			self._position.y = 0.0;
-		} else if self.get_bottom() > height as f32 {
-			self._position.y = height as f32 - self._width as f32;
-		}
-
-		// TODO
 	}
 
 	fn get_up(&self) -> f32 {
