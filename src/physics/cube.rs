@@ -10,7 +10,8 @@ pub struct Cube {
 	_velocity: Vec3,
 	_angle_velocity: Vec3,
 
-	_width: u32
+	_width: u32,
+	_color: u32
 }
 
 impl Positionnable for Cube {
@@ -80,7 +81,7 @@ impl Entity for Cube {
 }
 
 impl Cube {
-	pub fn new(postion : Vec3, width : u32) -> Cube {
+	pub fn new(postion : Vec3, color : u32, width : u32) -> Cube {
 		return Cube {
 			_position : postion,
 			_angles: Vec3::new(0.0, 0.0, 0.0),
@@ -88,7 +89,9 @@ impl Cube {
 			_velocity: Vec3::new(0.0, 0.0, 0.0),
 			_angle_velocity: Vec3::new(0.0, 0.0, 0.0),
 
-			_width: width
+			_width: width,
+
+			_color: color
 		}
 	}
 }

@@ -31,6 +31,17 @@ fn main() {
 		Box::new(
 			Cube::new(
 				Vec3::new((WIDTH/2 - 25) as f32, (HEIGHT/2 - 25) as f32, 0.0),
+				0xFF0000,
+				50
+			)
+		)
+	);
+
+	_world.add_entity(
+		Box::new(
+			Cube::new(
+				Vec3::new((WIDTH/2 - 50) as f32, (HEIGHT/2 - 100) as f32, 0.0),
+				0x0000FF,
 				50
 			)
 		)
