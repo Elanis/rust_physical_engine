@@ -6,6 +6,7 @@ use minifb::{Key, WindowOptions, Window};
 
 use physics::world::World;
 use physics::cube::Cube;
+use physics::sphere::Sphere;
 
 use physics::vec3::Vec3;
 
@@ -50,7 +51,37 @@ fn main() {
 	_world.add_entity(
 		Box::new(
 			Cube::new_immutable(
-				Vec3::new((WIDTH/3 - 50) as f32, (HEIGHT/3 - 100) as f32, 0.0),
+				Vec3::new((WIDTH/2 - 25) as f32, (3*HEIGHT/4 - 25) as f32, 0.0),
+				0x00FF00,
+				50
+			)
+		)
+	);
+
+	_world.add_entity(
+		Box::new(
+			Sphere::new(
+				Vec3::new((WIDTH/3 - 25) as f32, (HEIGHT/2 - 25) as f32, 0.0),
+				0xFF0000,
+				50
+			)
+		)
+	);
+
+	_world.add_entity(
+		Box::new(
+			Sphere::new(
+				Vec3::new((WIDTH/3 - 50) as f32, (HEIGHT/2 - 100) as f32, 0.0),
+				0x0000FF,
+				50
+			)
+		)
+	);
+
+	_world.add_entity(
+		Box::new(
+			Sphere::new_immutable(
+				Vec3::new((WIDTH/3 - 25) as f32, (3*HEIGHT/4 - 25) as f32, 0.0),
 				0x00FF00,
 				50
 			)

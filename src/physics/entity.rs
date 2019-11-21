@@ -15,4 +15,6 @@ pub trait Entity {
 	fn get_left(&self) -> f32;
 	fn get_bottom(&self) -> f32;
 	fn get_right(&self) -> f32;
+
+	fn is_member(&self, postion : &Vec3) -> bool;
 }

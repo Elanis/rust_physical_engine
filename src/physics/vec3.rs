@@ -53,6 +53,14 @@ impl Vec3 {
     pub fn dot_product(left: &Vec3, right: &Vec3) -> f32 {
         left.x * right.x + left.y * right.y + left.z * right.z
     }
+
+    pub fn squared_distance(&self, other : &Vec3) -> f32 {
+        (self.x - other.x).powi(2) + (self.y - other.y).powi(2) + (self.z - other.z).powi(2)
+    }
+
+    pub fn distance(&self, other: &Vec3) -> f32 {
+        self.squared_distance(other).sqrt()
+    }
 }
 
 impl Add for Vec3 {

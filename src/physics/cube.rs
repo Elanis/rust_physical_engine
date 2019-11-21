@@ -86,6 +86,14 @@ impl Entity for Cube {
 	fn get_right(&self) -> f32 {
 		(self._position.x + self._width as f32)
 	}
+
+	fn is_member(&self, postion : &Vec3) -> bool {
+		(postion.y < self.get_bottom() &&
+			postion.y > self.get_up() &&
+			postion.x > self.get_left() &&
+			postion.x < self.get_right()
+		)
+	}
 }
 
 impl Cube {
