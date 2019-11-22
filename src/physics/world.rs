@@ -62,9 +62,6 @@ impl World {
 
             object.render(&mut _buffer, width, height);
         }
-
-        let ten_millis = time::Duration::from_millis(10);
-        thread::sleep(ten_millis);
     }
 
     pub fn apply_collisions(&mut self) { 
