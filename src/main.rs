@@ -26,7 +26,7 @@ fn main() {
 	// Initialize world
 	let mut _world = World::new();
 
-	_world.set_gravity(10.0);
+	_world.set_gravity(15.0);
 
 	_world.add_entity(
 		Box::new(
