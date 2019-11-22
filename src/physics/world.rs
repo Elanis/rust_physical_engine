@@ -28,10 +28,15 @@ impl World {
 
     	for (_i, object) in self._entities.iter_mut().enumerate() {
             object.recalc_speed(tick, self._gravity);
+    	}
+
+        self.apply_collisions();
+
+        for (_i, object) in self._entities.iter_mut().enumerate() {
             object.recalc_pos(tick);
 
-    		object.render(&mut _buffer, width, height);
-    	}
+            object.render(&mut _buffer, width, height);
+        }
 
         self.apply_collisions();
     }
@@ -40,22 +45,21 @@ impl World {
         let mut new_velocities = Vec::new(); 
         new_velocities.resize(self._entities.len(), Vec3::new(0.0,0.0,0.0));
 
-        for i in 0..(self._entities.len() - 1) {
-            for j in 0..(self._entities.len() - 1) {
-                if i == j { continue; }
+        for i in 0..self._entities.len() {
+            for j in 0..self._entities.len() {
+                if i <= j { continue; }
 
                 let first = &self._entities[i];
                 let second = &self._entities[j];
 
                 if first.get_position().distance(&second.get_position()) < (first.get_radius() + second.get_radius()) {
-                    new_velocities[i] = -2.0 * first.get_velocity() * first.get_bouncing_value();
-                    new_velocities[j] = -2.0 * second.get_velocity() * second.get_bouncing_value();
+                    let first_velocity = -2.0 * first.get_velocity() * first.get_bouncing_value();
+                    let second_velocity = -2.0 * second.get_velocity() * second.get_bouncing_value();
+
+                    self._entities[i].apply_velocity(first_velocity);
+                    self._entities[j].apply_velocity(second_velocity);
                 }
             }
-        }
-
-        for i in 0..(self._entities.len() - 1) {
-            self._entities[i].apply_velocity(new_velocities[i]);
         }
     }
 }
