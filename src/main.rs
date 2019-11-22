@@ -63,7 +63,7 @@ fn main() {
 			Sphere::new(
 				Vec3::new((WIDTH/3 - 25) as f32, (HEIGHT/2 - 25) as f32, 0.0),
 				0xFF0000,
-				50
+				25
 			)
 		)
 	);
@@ -73,7 +73,7 @@ fn main() {
 			Sphere::new(
 				Vec3::new((WIDTH/3 - 50) as f32, (HEIGHT/2 - 100) as f32, 0.0),
 				0x0000FF,
-				50
+				25
 			)
 		)
 	);
@@ -83,7 +83,7 @@ fn main() {
 			Sphere::new_immutable(
 				Vec3::new((WIDTH/3 - 25) as f32, (3*HEIGHT/4 - 25) as f32, 0.0),
 				0x00FF00,
-				50
+				25
 			)
 		)
 	);

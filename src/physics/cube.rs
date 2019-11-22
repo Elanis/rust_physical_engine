@@ -1,4 +1,3 @@
-use super::positionnable::Positionnable;
 use super::entity::Entity;
 
 use super::vec3::Vec3;
@@ -13,10 +12,12 @@ pub struct Cube {
 	_immutable: bool,
 
 	_width: u32,
-	_color: u32
+	_color: u32,
+
+	_bouncing_value: f32
 }
 
-impl Positionnable for Cube {
+impl Entity for Cube {
 	fn get_position(&self) -> Vec3 {
 		return self._position;
 	}
@@ -24,11 +25,13 @@ impl Positionnable for Cube {
 	fn get_angles(&self) -> Vec3 {
 		return self._angles;
 	}
-}
 
-impl Entity for Cube {
 	fn get_velocity(&self) -> Vec3 {
 		return self._velocity;
+	}
+
+	fn apply_velocity(&mut self, velocity: Vec3) {
+		self._velocity = self._velocity + velocity
 	}
 
 	fn get_angle_velocity(&self) -> Vec3 {
@@ -87,6 +90,14 @@ impl Entity for Cube {
 		(self._position.x + self._width as f32)
 	}
 
+	fn get_radius(&self) -> f32 {
+		(self._width as f32 / 2.0)
+	}
+
+	fn get_bouncing_value(&self) -> f32 {
+		self._bouncing_value
+	}
+
 	fn is_member(&self, postion : &Vec3) -> bool {
 		(postion.y < self.get_bottom() &&
 			postion.y > self.get_up() &&
@@ -117,7 +128,9 @@ impl Cube {
 
 			_width: width,
 
-			_color: color
+			_color: color,
+
+			_bouncing_value: 0.9, // TODO: custom value
 		}
 	}
 }
