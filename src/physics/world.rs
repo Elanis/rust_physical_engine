@@ -45,7 +45,7 @@ impl World {
     	self._entities.push(entity);
     }
 
-    pub fn simulate(&mut self, mut _buffer : &mut Vec<u32>, width : usize, height : usize) {
+    pub fn simulate(&mut self, mut _buffer : &mut Vec<u32>, width : usize, height : usize) -> f32 {
         let tick : f32 = (World::get_curr_tick() - self._last_tick) as f32 / 1_000.0;
         self._last_tick = World::get_curr_tick();
 
@@ -62,6 +62,8 @@ impl World {
 
             object.render(&mut _buffer, width, height);
         }
+
+        (1000.0 / tick).round()
     }
 
     pub fn apply_collisions(&mut self) { 

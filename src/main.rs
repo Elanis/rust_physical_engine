@@ -16,7 +16,9 @@ const HEIGHT: usize = 720;
 fn main() {
 	let mut buffer: Vec<u32> = vec![0; WIDTH * HEIGHT];
 
-	let mut window = Window::new("Rust Physical Engine - ESC to exit",
+	let title = "Rust Physical Engine - ESC to exit - ";
+
+	let mut window = Window::new("",
 								 WIDTH,
 								 HEIGHT,
 								 WindowOptions::default()).unwrap_or_else(|e| {
@@ -95,7 +97,9 @@ fn main() {
 			*i = 0xEEEEEE;
 		}
 
-		_world.simulate(&mut buffer, WIDTH, HEIGHT);
+		let fps = _world.simulate(&mut buffer, WIDTH, HEIGHT);
+
+		window.set_title(&(title.to_owned() + &fps.to_string() + " FPS"));
 
 		// Really draw what we rendered
 		window.update_with_buffer(&buffer).unwrap();
