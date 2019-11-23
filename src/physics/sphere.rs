@@ -70,19 +70,19 @@ impl Entity for Sphere {
 	}
 
 	fn get_up(&self) -> f32 {
-		(self._position.y - self._radius as f32)
+		0.0
 	}
 
 	fn get_left(&self) -> f32 {
-		(self._position.x - self._radius as f32)
+		0.0
 	}
 
 	fn get_bottom(&self) -> f32 {
-		(self._position.y + self._radius as f32)
+		0.0
 	}
 
 	fn get_right(&self) -> f32 {
-		(self._position.x + self._radius as f32)
+		0.0
 	}
 
 	fn get_radius(&self) -> f32 {

@@ -66,6 +66,24 @@ impl World {
         (1000.0 / tick).round()
     }
 
+    pub fn collides_as_box(a : &Box<dyn Entity>, b : &Box<dyn Entity>) -> bool {
+        (
+            a.get_up() < b.get_bottom() && a.get_up() > b.get_up() ||
+            b.get_up() < a.get_bottom() && b.get_up() > a.get_up()
+        ) && (
+            a.get_left() < b.get_right() && a.get_left() > b.get_left() ||
+            b.get_left() < a.get_right() && b.get_left() > a.get_left()
+        )
+    }
+
+    pub fn collides(a : &Box<dyn Entity>, b : &Box<dyn Entity>) -> bool {
+        (
+            a.get_position().distance(&b.get_position()) < (a.get_radius() + b.get_radius()) ||
+            World::collides_as_box(&a, &b) ||
+            World::collides_as_box(&b, &a)
+        )
+    }
+
     pub fn apply_collisions(&mut self) { 
         let mut new_velocities = Vec::new(); 
         new_velocities.resize(self._entities.len(), Vec3::new(0.0,0.0,0.0));
@@ -77,16 +95,10 @@ impl World {
                 let first = &self._entities[i];
                 let second = &self._entities[j];
 
-                if first.get_position().distance(&second.get_position()) < (first.get_radius() + second.get_radius()) {
+                if World::collides(&first, &second) {
+
                     let first_velocity = -2.0 * first.get_velocity() * first.get_bouncing_value();
                     let second_velocity = -2.0 * second.get_velocity() * second.get_bouncing_value();
-
-                    self._entities[i].apply_velocity(first_velocity);
-                    self._entities[j].apply_velocity(second_velocity);
-                } else if first.get_position().distance(&second.get_position()) < (first.get_radius() + second.get_radius()) * 1.001 {
-                    // Temporary fix to prevent shaking
-                    let first_velocity = -1.0 * first.get_velocity();
-                    let second_velocity = -1.0 * second.get_velocity();
 
                     self._entities[i].apply_velocity(first_velocity);
                     self._entities[j].apply_velocity(second_velocity);
