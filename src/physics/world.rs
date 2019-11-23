@@ -81,6 +81,13 @@ impl World {
 
                     self._entities[i].apply_velocity(first_velocity);
                     self._entities[j].apply_velocity(second_velocity);
+                } else if first.get_position().distance(&second.get_position()) < (first.get_radius() + second.get_radius()) * 1.001 {
+                    // Temporary fix to prevent shaking
+                    let first_velocity = -1.0 * first.get_velocity();
+                    let second_velocity = -1.0 * second.get_velocity();
+
+                    self._entities[i].apply_velocity(first_velocity);
+                    self._entities[j].apply_velocity(second_velocity);
                 }
             }
         }
